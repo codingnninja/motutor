@@ -1,0 +1,20 @@
+[
+	{
+        "id": 1,
+        "headline": "Career Information",
+        "description": "Necessary career changing information all around the world, online or offline, are made accessible to you.",
+        "image": "info.jpg"
+    },
+    {
+        "id": 2,
+        "headline": "Employable Skills",
+        "description": "We curate vetted and useful tutorials throught which you can acquire employable skills.",
+        "image": "skills.jpg"
+    },
+    {
+        "id": 3,
+        "headline": "Life Opportunities",
+        "description": "We do the hard work to discover opportunities just for your benefit.",
+        "image": "opportunities.jpg"
+    },
+]
