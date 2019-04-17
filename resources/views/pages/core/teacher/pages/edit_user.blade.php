@@ -1,24 +1,16 @@
 @extends('layouts.admin')
    @section('content')
    	   @parent 
-<div class="col-md-12">
-  <form method="POST" action="{{route('store.school')}}" enctype="multipart/form-data" class="form-contact school-creation-form form-control">
+   	   <div class="col-md-12">
+  <form method="POST" action="{{route('update.school')}}" enctype="multipart/form-data" class="form-contact school-creation-form form-control">
     @csrf
-      <h1 class="h3 mb-3 font-weight-normal text-center">Create!</h1>
+      <h4 class="h3 mb-3 font-weight-normal text-center">Edit school !</h4>
       <hr>
       <div class="row justify-content-center">
-       @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-        @endif
+      
         <div class="form-group col-md-4">
-          <label for="meTitle">Title</label>
-          <input type="text" name="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" value="{{ old('title') }}" required autofocus>
+          <label for="meTitle"> Title</label>
+          <input type="text" name="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" value="{{ $school->title }}" required autofocus>
           @if ($errors->has('title'))
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('title') }}</strong>
@@ -26,42 +18,42 @@
           @endif
         </div>
         <div class="form-group col-md-4">
-          <label for="">phones</label>
-          <input type="phone" class="form-control{{ $errors->has('phones') ? ' is-invalid' : '' }}" name="phones" value="{{ old('phones') }}" required>
+          <label for="">Phones</label>
+          <input type="phone" class="form-control{{ $errors->has('phones') ? ' is-invalid' : '' }}" name="phones" value="{{ $school->phones }}" required>
 
           @if ($errors->has('phones'))
               <span class="invalid-feedback" role="alert">
-                  <strong>{{ $errors->first('phones') }}</strong>
+                  <strong>{{ $errors->first('title') }}</strong>
               </span>
           @endif
         </div>
 
         <div class="form-group col-md-4">
-          <label for="inputInstructors"> instructors </label>
-          <input type="text" class="form-control{{ $errors->has('instructors') ? ' is-invalid' : '' }}" name="instructors" value="{{old('instructors')}}" required>
+          <label for="inputInstructors"> Fullname </label>
+          <input type="text" class="form-control{{ $errors->has('fullname') ? ' is-invalid' : '' }}" name="fullname" value="{{ auth()->user()->name}}" required>
 
-          @if ($errors->has('instructors'))
+          @if ($errors->has('fullname'))
               <span class="invalid-feedback" role="alert">
-                  <strong>{{ $errors->first('instructors') }}</strong>
+                  <strong>{{ $errors->first('fullname') }}</strong>
               </span>
           @endif
         </div>
       
         <div class="form-group col-md-4">
-          <label for="inputEmail">Emails</label>
-          <input type="text" class="form-control{{$errors->has('emails') ? ' is-invalid' : ''}}" name="emails" placeholder="" value="{{old('emails')}}" required>
+          <label for="inputEmail">Email</label>
+          <input type="text" class="form-control{{$errors->has('email') ? ' is-invalid' : ''}}" name="email" value="{{ auth()->user()->name }}" required>
 
-          @if ($errors->has('emails'))
+          @if ($errors->has('email'))
               <span class="invalid-feedback" role="alert">
-                  <strong>{{ $errors->first('emails') }}</strong>
+                  <strong>{{ $errors->first('email') }}</strong>
               </span>
           @endif
         </div>
 
       <div class="form-group col-md-4">
         <label for="inputTags">Tags</label>
-        <input type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid': ''}}" name="tags" placeholder="" value="{{ old('tags') }}" required>
-
+        <input type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid': ''}}" name="tags" value="{{ $tags }}" required>
+        
         @if ($errors->has('tags'))
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('tags') }}</strong>
@@ -72,10 +64,16 @@
       <div class="form-group col-md-4">
         <label for="inputStatus"> status</label>
         <select class="form-control{{ $errors->has('status') ? 'is-invalid' : ''}}" name="status" required>
-	          <option value="1" selected> Published </option>
-	          <option value="2"> Drafted </option>
-	          <option value="3"> Activated </option>
-	          <option value="4"> Deactivated </option>
+        @if(count($statuses) < 1)
+	          <option value="0" selected> Published </option>
+	          <option value="1"> Drafted </option>
+	          <option value="2"> Activated </option>
+	          <option value="3"> Deactivated </option>
+	      @else
+          @foreach($statuses as $status)
+          <option value="{{ $status->status_id }}" {{$status->slug == $school->slug ? 'selected' : '' }}>{{ $status->status }}</option>
+          @endforeach
+        @endif
         </select>
 
           @if ($errors->has('status'))
@@ -87,7 +85,7 @@
 
       <div class="form-group col-md-4">
         <label for="inputWhatYouGet">You get?</label>
-        <input type="text" class="form-control{{ $errors->has('what_you_get') ? 'is-invalid': ''}}" name="what_you_get" placeholder="" value="{{ old('what_you_get') }}">
+        <input type="text" class="form-control{{ $errors->has('what_you_get') ? 'is-invalid': ''}}" name="what_you_get" placeholder="video, pdf" value="{{ $school->what_you_get }}">
 
           @if ($errors->has('what_you_get'))
               <span class="invalid-feedback" role="alert">
@@ -97,7 +95,7 @@
       </div>
       <div class="form-group col-md-4">
         <label for="inputWhyChoosing">Why us?</label>
-        <input type="text" class="form-control{{ $errors->has('why_choosing')}}" name="why_choosing" value="{{ old('why_choosing') }}" required>
+        <input type="text" class="form-control{{ $errors->has('why_choosing')}}" name="why_choosing" value="{{ $school->why_choosing }}" required>
 
           @if ($errors->has('why_choosing'))
               <span class="invalid-feedback" role="alert">
@@ -107,7 +105,7 @@
       </div>
       <div class="form-group col-md-4">
         <label for="inputAddress">Address</label>
-        <input type="text" class="form-control{{$errors->has('address') ? 'is-invalid' : ''}}" name="address" value="{{ old('address') }}">
+        <input type="text" class="form-control{{$errors->has('address') ? 'is-invalid' : ''}}" name="address" value="{{ $school->address }}">
 
           @if ($errors->has('address'))
               <span class="invalid-feedback" role="alert">
@@ -118,7 +116,7 @@
 
       <div class="form-group col-md-4">
         <label for="inputMedia">Media urls</label>
-        <input type="text" class="form-control{{ $errors->has('media') ? 'is-invalid' : ''}}" name="media" value="{{ old('media') }}">
+        <input type="text" class="form-control{{ $errors->has('media') ? 'is-invalid' : ''}}" name="media" value="{{ $school->media }}">
 
           @if ($errors->has('media'))
               <span class="invalid-feedback" role="alert">
@@ -131,7 +129,7 @@
         <label for="inputDescription">
            description
         </label>
-        <textarea class="form-control{{ $errors->has('description') ? 'is-invalid' : ''}}" name="description" required> {{ old('description') }}</textarea>
+        <textarea class="form-control{{ $errors->has('description') ? 'is-invalid' : ''}}" name="description" required> {{ $school->description }}</textarea>
 
           @if ($errors->has('description'))
               <span class="invalid-feedback" role="alert">
@@ -139,11 +137,13 @@
               </span>
           @endif
       </div>
-      <input type="hidden" name="user_id" value="{{ auth::user()->id}}">
-      <div class="form-group"></div>
-        <button type="submit" class="btn btn-success form-control"> Create </button>
+      
+      <input type="hidden" name="user_id" value="{{ $school->user_id }}" />
+      <input type="hidden" name="school_id" value="{{ $school->school_id }}" />
+      <div class="col-md-12"></div>
+        <button type="submit" class="btn btn-success rounded"> Create </button>
       </div>
     </div>
   </form>
-</div> 
-   @endsection
+</div>
+@endsection

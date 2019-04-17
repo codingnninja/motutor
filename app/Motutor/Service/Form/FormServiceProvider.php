@@ -2,9 +2,12 @@
 
 use Illuminate\Support\ServiceProvider;
 use Motutor\Service\Form\School\SchoolForm;
-use Motutor\Service\Form\School\SchoolFormLaravelValidator;
+use Motutor\Service\Form\Profile\ProfileForm;
 use Motutor\Service\Form\Subscription\SubscriptionForm;
+use Motutor\Service\Form\School\SchoolFormLaravelValidator;
 use Motutor\Service\Form\Subscription\SubscriptionFormLaravelValidator;
+use Motutor\Service\Form\Profile\ProfileFormLaravelValidator;
+
 
 
 class FormServiceProvider extends ServiceProvider {
@@ -33,6 +36,15 @@ class FormServiceProvider extends ServiceProvider {
                 $app->make('Motutor\Repo\Subscription\SubscriptionInterface')
             );
         });
+
+        $app->bind('Motutor\Service\Form\Profile\ProfileForm', function($app)
+        {
+            return new ProfileForm(
+                new ProfileFormLaravelValidator( $app['validator'] ),
+                $app->make('Motutor\Repo\Profile\ProfileInterface')
+            );
+        });
+
     }
 
 }

@@ -14,6 +14,7 @@ class EloquentSchool extends RepoAbstract implements SchoolInterface
     protected $school;
     protected $tag;
     protected $tagModel;
+    protected $internalModel = "school";
     protected $status;
 
     // Class expects Eloquent school and tag models
@@ -31,13 +32,11 @@ class EloquentSchool extends RepoAbstract implements SchoolInterface
      *
      * @param  int $id school ID
      * @return stdObject object of school information
-     */
+    */
 
     public function byId($id)
     {
-            return $this->school
-                ->where('school_id', $id)
-                ->first();
+        return $this->getById($id);
     }
 
     /**
@@ -51,27 +50,7 @@ class EloquentSchool extends RepoAbstract implements SchoolInterface
 
     public function byPage($page=1, $limit=10, $all=false)
     {
-        $result = new \StdClass;
-        $result->page = $page;
-        $result->limit = $limit;
-        $result->totalItems = 0;
-        $result->items = [];
-
-        $query = $this->school->orderBy('created_at', 'desc');
-
-        if( ! $all )
-        {
-            $query->where('status_id', 1);
-        }
-
-        $schools = $query->skip( $limit * ($page-1) )
-                        ->take($limit)
-                        ->get();
-
-        $result->totalItems = $this->totalSchools($all);
-        $result->items = $schools->all();
-
-        return $result;
+        return $this->getByPage($page, $limit, $all);
     }
 
     /**
@@ -83,10 +62,7 @@ class EloquentSchool extends RepoAbstract implements SchoolInterface
 
     public function bySlug($slug)
     {
-        return $this->school
-        ->where('slug', $slug)
-        ->where('status_id', 1)
-        ->first();
+        return $this->getBySlug($slug);
     }
 
    /**
@@ -99,33 +75,7 @@ class EloquentSchool extends RepoAbstract implements SchoolInterface
 
     public function byTag($tag, $page=1, $limit=50)
     {
-        $foundTag = $this->tagModel
-            ->where('tag', $tag)
-            ->first();
-
-        $result = new \StdClass;
-        $result->page = $page;
-        $result->limit = $limit;
-        $result->totalItems = 0;
-        $result->items = [];
-
-        if( !$foundTag )
-        {
-            return $result;
-        }
-
-        $schools = $foundTag
-            ->schools()
-            ->where('schools.status_id', 1)
-            ->orderBy('schools.created_at', 'desc')
-                ->skip( $limit * ($page-1) )
-            ->take($limit)
-            ->get();
-
-        $result->totalItems = $this->totalByTag($tag);
-        $result->items = $schools->all();
-
-        return $result;
+        return $this->getByTag($tag, $page, $limit);
     }
 
     /**

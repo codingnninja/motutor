@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('leftpanel')
+    @include('pages.core.admin.components.leftpanel')
+@endsection
 @section('content')
     <div class="col-sm-12">
 

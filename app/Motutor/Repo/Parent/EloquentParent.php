@@ -9,7 +9,6 @@ use App\Models\Subscription;
 class EloquentSubscription extends RepoAbstract implements SubscriptionInterface {
 
     protected $subscription;
-    protected $internalModel = "subscription";
     // Class expects an Eloquent model
     public function __construct(Subscription $subscription, StatusInterface $status)
     {
@@ -27,7 +26,9 @@ class EloquentSubscription extends RepoAbstract implements SubscriptionInterface
 
     public function byId($id)
     {
-        return $this->getById($id);
+        return $this->subscription
+            ->where('subscription_id', $id)
+            ->first();
     }
 
     /**
@@ -40,9 +41,29 @@ class EloquentSubscription extends RepoAbstract implements SubscriptionInterface
      */
 
     public function byPage($page=1, $limit=10, $all=false)
-    {
-        return $this->getByPage($page, $limit, $all);
-    }
+        {
+            $result = new \StdClass;
+            $result->page = $page;
+            $result->limit = $limit;
+            $result->totalItems = 0;
+            $result->items = [];
+
+            $query = $this->subscription->orderBy('created_at', 'desc');
+
+            if( ! $all )
+            {
+                $query->where('status_id', 3);
+            }
+
+            $subscriptions = $query->skip( $limit * ($page-1) )
+                    ->take($limit)
+                    ->get();
+
+            $result->totalItems = $this->totalSubscriptions($all);
+            $result->items = $subscriptions->all();
+
+            return $result;
+        }
 
         /**
      * Get single subscription by URL
@@ -53,7 +74,10 @@ class EloquentSubscription extends RepoAbstract implements SubscriptionInterface
 
     public function bySlug($slug)
     {
-        return $this->getBySlug($slug);
+        return $this->subscription
+        ->where('slug', $slug)
+        ->where('status_id', 3)
+        ->first();
     }
 
     /**

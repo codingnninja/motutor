@@ -16,10 +16,12 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(auth::user()->type === 'admin') {
+        if(auth::user()->type === 'admin'){
             return $next($request);
-        } elseif (auth::user()->type === 'instructor') {
-            return redirect('/user/dashboards');
+        } elseif (auth::user()->type === 'teacher'){
+            return redirect('/teacher');
+        } elseif (auth::user()->type === 'parent'){
+            return redirect('/parent');
         }
         return redirect('/');
     }

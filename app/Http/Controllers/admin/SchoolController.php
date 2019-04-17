@@ -22,79 +22,53 @@ class SchoolController extends Controller
 			  $validatedData;
 
 	public function __construct(SchoolInterface $school, Request $request, StatusInterface $status, SchoolForm $schoolForm, School $schoolModel)
-		{
-			$this->school = $school;
-			$this->status = $status;
-			$this->schoolModel = $schoolModel;
-			$this->schoolForm = $schoolForm;
-			$this->request = $request->all();
-		}
+    {
+        $this->school = $school;
+        $this->status = $status;
+        $this->schoolModel = $schoolModel;
+        $this->schoolForm = $schoolForm;
+        $this->request = $request->all();
+    }
 
     public function index()
     {
         return view('pages.core.admin.dashboard');
     }
-        
-
-	/**
-     * List school
-     * GET /admin/school
-     
-    public function index()
-    {
-        $page = Input::get('page', 1);
-
-        // Candidate for config item
-        $perPage = 3;
-
-        $pagiData = $this->school->byPage($page, $perPage, true);
-
-        $school = Paginator::make($pagiData->items, $pagiData->totalItems, $perPage);
-
-        $this->layout->content = View::make('admin.article_list')->with('school', $school);
-    }*/
-
     /**
      * Show single school. We only want to show edit form
      * @param  int $id school ID
      * @return Redirect
      */
     public function show($id)
-	    {
-	        return redirect('/admin/school/'.$id.'/edit');
-	    }
+    {
+        return redirect('/admin/school/'.$id.'/edit');
+    }
 
     /**
      * Create school form
      * GET /admin/school/create
      */
     public function create()
-        {
-            $statuses = $this->status->all();
-            return view('pages.core.admin.components.create_school', [
-                'statuses' => $statuses,
-            ]);
-        }
+    {
+        $statuses = $this->status->all();
+        return view('pages.core.admin.components.create_school', [
+            'statuses' => $statuses,
+        ]);
+    }
 
     /**
-     * Get schools for admin
-     * GET /admin/school/create
+     * Get schools 
+     * GET /admin/school
      */
     public function byPage()
-	    {
-            $page = 1;
-            $perPage = 100;
-	        $schools = $this->school
-                            ->byPage(
-                                $page,
-                                $perPage,
-                                true
-                            );
-
-	        return view('pages.core.admin.components.school', [
-	            'schools' => $schools->items
-	        ]);
-	    }
+    {
+        $page = 1;
+        $perPage = 100;
+        $schools = $this->school->byPage($page, $perPage, true);
+        return view('pages.core.admin.components.school', [
+            'schools' => $schools->items
+        ]);
+    }
 
     /**
      * Create school form
@@ -119,11 +93,14 @@ class SchoolController extends Controller
         ]);
     }
 
-    public function store ()
+    public function store()
     {
         $school = $this->schoolForm->save($this->request);
         return view('pages.core.admin.dashboard', ['school' => $school]);
-        if( $school === null ) { return redirect('/'); }
+        if($school === null)
+        { 
+            return redirect('/');
+        }
     }
        
     public function update()
@@ -138,7 +115,8 @@ class SchoolController extends Controller
              ->find($school_id)
              ->tags()
              ->detach();
-        $this->schoolModel
+        
+             $this->schoolModel
              ->destroy($school_id);
         return $this->byPage();
     }

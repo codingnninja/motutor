@@ -14,10 +14,12 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth','is_admin'], 'prefix' => 'admin'],function () {
-	Route::get('', 'Admin\SchoolController@index')
+	Route::get('', 
+	'Admin\SchoolController@index')
 		->name('admin.dashboard');
 
-	Route::get('programs', 'Admin\SchoolController@byPage')
+	Route::get('programs', 
+	'Admin\SchoolController@byPage')
 		->name('get.schools');
 
 	Route::get('programs/create', 'Admin\SchoolController@create')
@@ -45,6 +47,8 @@ Route::group(['middleware' => ['auth','is_admin'], 'prefix' => 'admin'],function
 		->name('get.users');
 });
 
+// Routing for subscription
+
 Route::get('/register/{slug}', 'SubscriptionController@create')
 	->name('create');
 
@@ -54,10 +58,13 @@ Route::post('/register/process', 'SubscriptionController@store')
 Route::get('/thanks', function () { 
     return view('pages.info.thank-donor');
 });
+
+//Routing for schools
 Route::get('/schools/{slug}', 'HomeController@bySlug')
 	->name('school');
 
-Route::get('/schools','HomeController@byPage')	->name('schools');
+Route::get('/schools','HomeController@byPage')	
+	->name('schools');
 
 Route::get('/schools/filter/{tag}', 'HomeController@byTag')
 	->name('filter');
@@ -65,6 +72,18 @@ Route::get('/schools/filter/{tag}', 'HomeController@byTag')
 Route::post('/schools/search', 'HomeController@search')
 	->name('search');
 
+//Routing for users
+Route::get('/teacher', 'UserController@index')
+	->name('dashboard');
+
+Route::get('/teacher/profile', 'UserController@byId')
+	->name('profile');
+
+Route::get('/teacher/profiles', 'UserController@byPage')
+	->name('profiles');
+
+Route::get('/teacher/profile/edit', 'UserController@edit')
+	->name('edit');
+
 Auth::routes();
-Route::get('/home', 'HomeController@index')
-	->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

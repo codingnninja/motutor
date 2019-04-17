@@ -4,12 +4,14 @@ use App\Models\Tag;
 use App\Models\Status;
 use App\Models\School;
 use App\Models\Subscription;
+use App\Models\Profile;
 use Motutor\Repo\Tag\EloquentTag;
 use Motutor\Service\Cache\LaravelCache;
 use Motutor\Repo\Status\EloquentStatus;
 use Motutor\Repo\School\SchoolCacheDecorator;
 use Motutor\Repo\School\EloquentSchool;
 use Motutor\Repo\Subscription\EloquentSubscription;
+use Motutor\Repo\Profile\EloquentProfile;
 use Illuminate\Support\ServiceProvider;
 
 class RepoServiceProvider extends ServiceProvider {
@@ -62,6 +64,14 @@ class RepoServiceProvider extends ServiceProvider {
         {
             return new EloquentSubscription(
                 new Subscription,
+                $app->make('Motutor\Repo\Status\StatusInterface')
+            );
+        });
+
+        $app->bind('Motutor\Repo\Profile\ProfileInterface', function($app)
+        {
+            return new EloquentProfile(
+                new Profile,
                 $app->make('Motutor\Repo\Status\StatusInterface')
             );
         });
