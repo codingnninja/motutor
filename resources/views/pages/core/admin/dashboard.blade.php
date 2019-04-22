@@ -1,8 +1,5 @@
 
 @extends('layouts.admin')
-    @section('leftpanel')
-        @include('pages.core.admin.components.leftpanel')
-    @endsection
     @section('content')
         <div class="col-sm-6 col-lg-3">
             <div class="card text-white bg-flat-color-1">

@@ -24,10 +24,13 @@ abstract class RepoAbstract {
      * @return stdObject object of item
      */
 
-    public function getById($id)
+    public function getById($id, $constraint=null)
     {
+        if($constraint == null){
+            $constraint = $this->internalModel;
+        }
         return $this->{$this->internalModel}
-            ->where("{$this->internalModel}_id", $id)
+            ->where("{$constraint}_id", $id)
             ->first();
     }
 

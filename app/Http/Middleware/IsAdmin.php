@@ -22,7 +22,7 @@ class IsAdmin
             return redirect('/teacher');
         } elseif (auth::user()->type === 'parent'){
             return redirect('/parent');
-        }
+        } 
         return redirect('/');
     }
 }

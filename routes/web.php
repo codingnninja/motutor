@@ -14,16 +14,23 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth','is_admin'], 'prefix' => 'admin'],function () {
-	Route::get('', 
-	'Admin\SchoolController@index')
+	Route::get('', 'Admin\AdminController@index')
 		->name('admin.dashboard');
 
-	Route::get('programs', 
-	'Admin\SchoolController@byPage')
-		->name('get.schools');
+	Route::get('students', 'Admin\StudentController@byPage')
+		->name('get.students');
 
-	Route::get('programs/create', 'Admin\SchoolController@create')
+	Route::get('staff', 'Admin\StaffController@byPage')
+		->name('get.staff');
+
+	Route::get('parents', 'Admin\ParentController@byPage')
+		->name('get.parents');
+
+	Route::get('student/create', 'Admin\SchoolController@create')
 		->name('create.program');
+
+	Route::get('school', 'Admin\SchoolController@create')
+		->name('create.school');
 
 	Route::post('store/school', 'Admin\SchoolController@store')
 		->name('store.school');
@@ -45,6 +52,20 @@ Route::group(['middleware' => ['auth','is_admin'], 'prefix' => 'admin'],function
 	
 	Route::post('users', 'Admin\UserController@byPage')
 		->name('get.users');
+
+	// Routing for subject
+	Route::get('/subjects', 'Admin\SubjectController@byPage')
+		->name('subjects');
+		
+	Route::post('/subject/store', 'Admin\SubjectController@store')
+		->name('store.subject');
+
+	// Routing for subject
+	Route::get('/classes', 'Admin\ClassController@byPage')
+	->name('classes');
+	
+	Route::post('/class/store', 'Admin\ClassController@store')
+	->name('store.class');
 });
 
 // Routing for subscription
@@ -76,14 +97,20 @@ Route::post('/schools/search', 'HomeController@search')
 Route::get('/teacher', 'UserController@index')
 	->name('dashboard');
 
-Route::get('/teacher/profile', 'UserController@byId')
+Route::get('/profile/{id}', 'UserController@byId')
 	->name('profile');
 
-Route::get('/teacher/profiles', 'UserController@byPage')
+Route::get('/profiles', 'UserController@byPage')
 	->name('profiles');
 
-Route::get('/teacher/profile/edit', 'UserController@edit')
+Route::get('/profile/edit/{id}', 'UserController@edit')
 	->name('edit');
+
+Route::post('/profile/update', 'UserController@update')
+	->name('update');
+
+Route::post('/profile/store', 'UserController@store')
+->name('store');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

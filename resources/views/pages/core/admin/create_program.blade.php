@@ -3,7 +3,7 @@
    	   @parent 
        @component('components.forms.create_program')
           @slot('action')
-             Create a program!
+             Create student!
           @endslot
        @endcomponent  
    @endsection

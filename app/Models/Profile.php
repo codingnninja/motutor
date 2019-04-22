@@ -10,17 +10,17 @@ class Profile extends Model
 
     protected $fillable = [
     	'user_id',
-    	'age',
-    	'student_phone',
+        'age',
+        'gender',
+    	'phone',
     	'parents_guidians_name',
 	    'parents_guidians_phone',
 	    'address',
-	    'state_region',
+	    'state',
         'city',
 	    'country',
 	    'avatar',
 	    'health_information',
-	    'class',
     ];
     
 	 /**

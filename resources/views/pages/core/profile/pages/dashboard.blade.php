@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
     @section('leftpanel')
-        @include('pages.core.teacher.components.leftpanel')
+        @include('pages.core.admin.components.leftpanel')
     @endsection
     @section('content')
            <div class="col-sm-6 col-lg-3">

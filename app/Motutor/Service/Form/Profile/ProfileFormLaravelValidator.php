@@ -10,18 +10,18 @@ class ProfileFormLaravelValidator extends AbstractLaravelValidator {
      * @var Array
      */
     protected $rules =  [
-            'user_id' => 'required|exists:users,id', // Assumes db connection
-            'age' => 'required|string|max:255',
-            'student_phone' => 'required|string|max:20',
-            'parents_guidians_name' => 'require|string|max:255',
-            'parents_guidians_phone' => 'require|string|max:255',
-            'address' => 'nullable',
-            'state_region' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id', // Assumes db connectio
+            'age' => 'required|string|max:20',
+            'gender' => 'required|string|max:20',
+            'phone' => 'required|string|max:20',
+            'parents_guidians_name' => 'nullable|string|max:255',
+            'parents_guidians_phone' => 'nullable|string|max:255',
+            'address' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
             'avatar' => 'nullable',
-            'health_information' => 'required|string|max:255',
-            'class' => 'required|string|max:255',
+            'health_information' => 'nullable|string|max:255',
     ];
 
 }

@@ -48,33 +48,41 @@ class UserController extends Controller
     
     public function __construct(ProfileInterface $profile, Request $request, ProfileForm $profileForm, StatusInterface $status, User $user)
     {
-        $this->school = $profile;
+        $this->profile = $profile;
         $this->status = $status;
         $this->user = $user;
         $this->profileForm = $profileForm;
         $this->request = $request->all();
     }
-
+    
     /**
      * 
      */
 
     public function index()
     {
-        return view('pages.core.teacher.pages.dashboard');
+        return view('pages.core.profile.pages.dashboard');
+    }
+
+     /**
+     * Show single item. We only want to show edit form
+     * @param  int $id item ID
+     * @return Redirect
+     */
+    public function show($id)
+    {
+        return redirect('/profile/'.$id);
     }
 
     /**
      * Create profile form
-     * GET /teacher/create
+     * GET /profile/create
      */
     public function create()
     {
-        $statuses = $this->status->all();
-        return view('pages.core.admin.components.create_school', [
-            'statuses' => $statuses,
-        ]);
+        return view('pages.core.admin.components.create_school');
     }
+    
     /**
      * store new profile for a registered user.
      * @return redirect
@@ -83,7 +91,7 @@ class UserController extends Controller
     {
         if($this->profileForm->save($this->request))
         {
-            return view('pages.core.admin.dashboard', ['user' => $school]);
+            return redirect("profile/{$this->request['user_id']}")->with('success','You have created this profile successfully');
         }
         return redirect('/');
     }
@@ -93,39 +101,61 @@ class UserController extends Controller
      */
     public function update()
     {
-        $newUser = $this->user->update($this->request);
-        $newProfile = $this->profileForm->update($this->request);
-        return view('pages.core.admin.components.create_school', ['result' => $result]);
+        if($this->profileForm->update($this->request))
+        {
+            return redirect("profile/{$this->request['user_id']}")->with('success','You have updated this profile successfully');
+        }
     }
     
-    public function byId()
+    public function byId($id)
     {
-        return view('pages.core.teacher.pages.profile');
+        $gender = ['Female', 'Male'];
+        $userRegData = $this->getRegistrationData($id);
+        if($userProfile = compact($this->profile->byId($id, 'user')))
+        {
+            return view('pages.core.profile.pages.profile',[
+                'profile' => $userProfile,
+                'gender' => $gender[$userProfile->gender],
+                'user' => $userRegData,
+            ]);
+        }
+        return view('pages.core.profile.pages.create_user',['user' => $userRegData]);
     }
      /**
      *  
-     * GET /teachers/
+     * GET /profiles/
      */
     public function byPage()
     {
-        $page = 1;
-        $perPage = 100;
         $user = $this->user->paginate(20);
         return view('pages.core.admin.components.school', [
-            'schools' => $schools->items
+            'schools' => $users
         ]);
     }
 
     /**
      * Create profile form
-     * GET /teacher/profile/{id}/edit
+     * GET /profile/profile/{id}/edit
      */
-    public function edit()
+    public function edit($id)
+    { 
+        $userRegData = $this->getRegistrationData($id);
+        if($profile = $this->profile->byId($id, 'user'))
+        {
+            return view('pages.core.profile.pages.edit_user', [
+                'profile' => $profile,
+                'user' => $userRegData,
+            ]);
+        }
+    }
+    /**
+     * get user registration data with id
+     * @param $id int
+     * @return eloquent object
+    */
+    public function getRegistrationData($id)
     {
-        $statuses = $this->status->all();
-        return view('pages.core.teacher.pages.edit_user', [
-            'statuses' => $statuses,
-        ]);
+        return $this->user->findOrFail($id);
     }
 
 }

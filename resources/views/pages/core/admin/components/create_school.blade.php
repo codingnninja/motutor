@@ -6,7 +6,12 @@
     @csrf
       <h1 class="h3 mb-3 font-weight-normal text-center">Create!</h1>
       <hr>
-      <div class="row justify-content-center">
+      <center>
+        <img src="{{url('images/photo.jpg')}}" name="aboutme" width="140" height="140" border="0" class="rounded-circle"></a><br>
+        <input class="mt-3" type="file" method="POST">
+      </center>
+      <hr>
+      <div class="row justify-content-center pr-4 pl-4">
        @if ($errors->any())
           <div class="alert alert-danger">
               <ul>

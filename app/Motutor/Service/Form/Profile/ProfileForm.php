@@ -57,7 +57,7 @@ class ProfileForm {
         if( ! $this->valid($input) )
         {
             return false;
-        }
+        } 
         return $this->profile->update($input);
     }
 

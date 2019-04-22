@@ -10,7 +10,7 @@ interface ProfileInterface {
      * @param  int $id profile ID
      * @return stdObject object of profile information
      */
-    public function byId($id);
+    public function byId($id, $constraint);
 
     /**
      * Get paginated profile

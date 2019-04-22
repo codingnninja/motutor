@@ -15,6 +15,9 @@
                             </label>
                             <div class="col-md-6">     
                                 <select class="form-control" name="type" required>
+                                    @if(auth()->check())
+                                        <option value="student" selected>student</option>
+                                    @endif
                                     <option value="parent" selected>Parent</option>
                                     <option value="teacher">Teacher</option>
                                     <option value="admin">Admin</option>

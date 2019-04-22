@@ -25,9 +25,9 @@ class EloquentProfile extends RepoAbstract implements ProfileInterface {
      * @return stdObject object of profile information
      */
 
-    public function byId($id)
+    public function byId($id, $constraint)
     {
-        return $this->getById($id);
+        return $this->getById($id, $constraint);
     }
 
     /**
@@ -93,7 +93,7 @@ class EloquentProfile extends RepoAbstract implements ProfileInterface {
 
         $profile === null ?
             $profile = profile::create($data)
-            :$profile->update($data);
+            :$profile->findOrFail($data['profile_id'])->update($data);
             return $profile; 
     }
 
