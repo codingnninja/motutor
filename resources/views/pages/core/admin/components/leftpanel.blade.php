@@ -2,11 +2,7 @@
 <li class="">
     <a href="{{route('profile', auth()->user()->id)}}" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Profile</a>
 </li>
-@if(auth()->user()->type === 'teacher')
-    <li class="">
-        <a href="" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Students</a>
-    </li>
-@endif
+
 @if(auth()->user()->type === 'admin')
     <li class="menu-item-has-children dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Users</a>
@@ -17,13 +13,21 @@
         </ul>
     </li>
 @endif
-<li class="">
-    <a href="{{route('subjects')}}" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Subjects</a>
-</li>
-<li class="">
-    <a href="{{route('classes')}}" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Classes</a>
-</li>
+@if(auth()->user()->type === 'teacher')
+    <li class="">
+        <a href="{{route('byPage')}}" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Subjects</a>
+    </li>
+    <li class="">
+        <a href="{{route('display.classes')}}" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Classes</a>
+    </li>
+@endif
 @if(auth()->user()->type === 'admin')
+    <li class="">
+        <a href="{{route('subjects')}}" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Subjects</a>
+    </li>
+    <li class="">
+        <a href="{{route('classes')}}" class="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Classes</a>
+    </li>
     <li class="menu-item-has-children dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Website</a>
         <ul class="sub-menu children dropdown-menu">

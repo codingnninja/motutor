@@ -17,12 +17,12 @@
                     @foreach($subjects as $key => $subject)
                         <div class="col-md-4">
                             <p class="text-left"><strong>{{$key + 1}}: </strong>
-                                <span class="label label-warning">{{ $subject->name }}</span>
+                                <span class="label label-warning">{{ $subject->name }}   :    {{$subject->teacher}}</span>
                             </p>
                         </div>
                     @endforeach
                 @endif               
-            </div>
+            </div><br><br><br><br>
             <div class="row justify-content-center pr-4 pl-4">
                 <div class="form-group col-md-4">
                     <label for="inputAge">Subject name</label>
@@ -49,6 +49,7 @@
                         </span>
                     @endif
                 </div>
+                <a href="#">Add teachers</a>
             <div class="col-md-12"></div>
                 <button type="submit" class="btn btn-success rounded"> Add subject  </button>
             </div>

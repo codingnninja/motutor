@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="col-sm-12">
-
+     @include('components.flash_messages') 
       <div class="panel panel-default panel-table">
         <div class="panel-heading  bg bg-white py-2 pl-2 pr-2">
           <div class="row">

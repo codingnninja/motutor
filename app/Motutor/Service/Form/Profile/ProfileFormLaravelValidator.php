@@ -10,7 +10,8 @@ class ProfileFormLaravelValidator extends AbstractLaravelValidator {
      * @var Array
      */
     protected $rules =  [
-            'user_id' => 'required|exists:users,id', // Assumes db connectio
+            'user_id' => 'required|exists:users,id', // Assumes db connection
+            'class_id' => 'required|string|exists:school_classes,class_id',
             'age' => 'required|string|max:20',
             'gender' => 'required|string|max:20',
             'phone' => 'required|string|max:20',
@@ -21,7 +22,7 @@ class ProfileFormLaravelValidator extends AbstractLaravelValidator {
             'city' => 'required|string|max:255',
             'country' => 'required|string|max:255',
             'avatar' => 'nullable',
-            'health_information' => 'nullable|string|max:255',
+            'health_information' => 'nullable|string|max:255', 
     ];
 
 }

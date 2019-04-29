@@ -22,7 +22,7 @@
                         </div>
                     @endforeach
                 @endif               
-            </div>
+            </div><br><br><br><br>
             <div class="row justify-content-center pr-4 pl-4">
                 <div class="form-group col-md-4">
                     <label for="inputAge">Class name</label>
@@ -49,18 +49,7 @@
                         </span>
                     @endif
                 </div>
-              {{--  
-                @foreach($subjects as $subject)
-                    <div class="col-md-12 offset-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="" id="remember">
-
-                            <label class="form-check-label" for="remember">
-                                {{ $subject->name}}
-                            </label>
-                        </div>
-                    </div>
-                @endforeach --}}
+                <a href="#" class="text-success">Add teacher</a><br>
 
             <div class="col-md-12"></div>
                 <button type="submit" class="btn btn-success rounded"> Create class  </button>

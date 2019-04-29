@@ -110,7 +110,15 @@ Route::post('/profile/update', 'UserController@update')
 	->name('update');
 
 Route::post('/profile/store', 'UserController@store')
-->name('store');
+	->name('store');
+
+//Routing for teacher
+
+Route::get('/teacher/subjects', 'TeacherController@subjects')
+	->name('byPage');
+
+Route::get('/teacher/classes', 'TeacherController@class')
+	->name('display.classes');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

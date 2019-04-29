@@ -40,4 +40,14 @@ class User extends Authenticatable
     {
         return $this->type === self::INSTRUCTOR_TYPE;
     }
+
+    /**
+     * Define a many-to-many relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function subjects()
+    {
+        return $this->belongsToMany('App\Models\Subject', 'students_subjects', 'user_id', 'subject_id')->withTimestamps();
+    }
 }

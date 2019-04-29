@@ -28,6 +28,6 @@ class CreateSchoolClassesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('school_classes');
     }
 }

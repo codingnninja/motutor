@@ -9,18 +9,21 @@ class Profile extends Model
     protected $primaryKey = "profile_id";
 
     protected $fillable = [
-    	'user_id',
+        'user_id',
+        'class_id',
         'age',
         'gender',
     	'phone',
     	'parents_guidians_name',
 	    'parents_guidians_phone',
 	    'address',
-	    'state',
+        'state',
+        'doctor_phone',
+        'blood_group',
         'city',
 	    'country',
 	    'avatar',
-	    'health_information',
+	    'health_information',//correct typo
     ];
     
 	 /**

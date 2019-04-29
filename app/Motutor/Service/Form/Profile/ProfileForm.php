@@ -43,7 +43,6 @@ class ProfileForm {
         {
             return false;
         }
-
         return $this->profile->create($input);
     }
 

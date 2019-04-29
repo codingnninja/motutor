@@ -28,7 +28,7 @@ class SubjectController extends Controller
     public function byPage()
     {     
         $subjects = $this->subject->all();
-        $teachers = $this->user->where('type', 'teacher')->get();
+        $teachers = $this->user->all();
         return view('pages.core.subject.subject', ['teachers' => $teachers, 'subjects' => $subjects]);
     }
 
