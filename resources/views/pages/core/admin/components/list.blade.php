@@ -57,7 +57,7 @@
                           <li class="mb-3 pl-1"><i class="fa fa-bars"></i><a href="{{route('get.parents')}}"> Check Attendance</a></li>
                       </ul>
                     </span>
-                  </td>
+                </td>
               </tr>
             @endforeach
             </tbody>

@@ -120,5 +120,17 @@ Route::get('/teacher/subjects', 'TeacherController@subjects')
 Route::get('/teacher/classes', 'TeacherController@class')
 	->name('display.classes');
 
+Route::get('/teacher/classes/{class_id}', 'TeacherController@studentsInClass')
+	->name('students.in.classe');
+
+Route::get('/teacher/subject/students', 'TeacherController@studentsForSubject')
+	->name('students.in.classe');
+
+Route::get('/teacher/classes/score/{user_id}', 'ScoreController@record')
+	->name('students.in.classe');
+
+Route::get('/teacher/subjects/{subject_id}', 'Admin\SubjectController@topics')
+	->name('topics');
+	
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

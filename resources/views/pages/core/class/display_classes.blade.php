@@ -34,10 +34,15 @@
                      {{'You'}}
                   @endif
                </td>
-               {{-- <td>{{ $class->status }}</td> --}} 
+            
                 <td>
-                    <a title="view this" class="btn btn-default btn-sm " href="{{url('teacher/class/students'.$class->id) }}"> 
-                      <i class="fa fa-eye text-primary">  View students</i> 
+                    @if($class->teacher_id == auth()->user()->id)
+                        <a title="Comments about the students in your class" class="btn btn-default btn-sm " href="{{url('teacher/classes/'.$class->class_id) }}"> 
+                          <i class="fa fa-comment text-success"></i> 
+                        </a>
+                    @endif
+                    <a title="view this" class="btn btn-default btn-sm " href="{{url('teacher/classes/'.$class->class_id) }}"> 
+                      <i class="fa fa-eye text-primary"></i>
                     </a>
                   </td>
               </tr>

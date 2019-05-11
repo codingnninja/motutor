@@ -43,8 +43,8 @@
                 </td>
                 {{-- <td>{{ $subject->status }}</td> --}} 
                   <td>
-                      <a title="view this" class="btn btn-default btn-sm " href="{{url('teacher/'.$subject->id) }}"> 
-                        <i class="fa fa-eye text-primary">  View Students</i> 
+                      <a title="view this" class="btn btn-default btn-sm " href="{{route('topics', $subject->subject_id)}}"> 
+                        <i class="fa fa-plus text-primary"> Add topics</i> 
                       </a>
                   </td>
               </tr>

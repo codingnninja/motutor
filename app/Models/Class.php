@@ -12,4 +12,9 @@ class SchoolClass extends Model
     	'name',
         'teacher_id',//class teacher
     ];
+
+    public function users()
+    {
+        return $this->hasMany('App\Models\Profile', 'class_id');
+    }
 }
