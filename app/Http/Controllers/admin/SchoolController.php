@@ -34,6 +34,17 @@ class SchoolController extends Controller
     {
         return view('pages.core.admin.dashboard');
     }
+
+    /**
+     * Redirect admin to school website components
+     * @param string url
+     * @return redirect to url
+    */
+
+    public function getPage($url)
+    {
+        return view('pages.core.admin.website.'.$url, ['url' => $url]);
+    }
     /**
      * Show single school. We only want to show edit form
      * @param  int $id school ID

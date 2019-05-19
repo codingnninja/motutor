@@ -11,7 +11,7 @@ class ProfileFormLaravelValidator extends AbstractLaravelValidator {
      */
     protected $rules =  [
             'user_id' => 'required|exists:users,id', // Assumes db connection
-            'class_id' => 'required|string|exists:school_classes,class_id',
+            'class_id' => 'nullable|string|exists:school_classes,class_id',
             'age' => 'required|string|max:20',
             'gender' => 'required|string|max:20',
             'phone' => 'required|string|max:20',

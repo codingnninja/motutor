@@ -66,6 +66,16 @@ Route::group(['middleware' => ['auth','is_admin'], 'prefix' => 'admin'],function
 	
 	Route::post('/class/store', 'Admin\ClassController@store')
 	->name('store.class');
+
+	//Website route
+	Route::get('/website/{url}', 'Admin\SchoolController@getPage')
+	->name('website.index');
+	
+	Route::post('/website/home', 'Admin\SchoolController@home')
+	->name('website.home');
+
+	Route::post('/website/gallery', 'Admin\SchoolController@gallery')
+	->name('website.gallery');
 });
 
 // Routing for subscription
@@ -131,6 +141,22 @@ Route::get('/teacher/classes/score/{user_id}', 'ScoreController@record')
 
 Route::get('/teacher/subjects/{subject_id}', 'Admin\SubjectController@topics')
 	->name('topics');
+
+Route::post('/teacher/subject/add_topic', 'Admin\SubjectController@add')
+	->name('add.topic');
+
+Route::post('/teacher/test', 'ScoreController@test')
+	->name('test');
+
+// comment
+Route::get('/teacher/student/{student_id}/{teacher_id}', 'CommentController@topics')
+	->name('comment');
+
+Route::get('/admnin/comment/{student_id}', 'CommentController@comment')
+	->name('comment');
+
+Route::post('/admnin/store/comment', 'CommentController@store')
+	->name('store.comment');
 	
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

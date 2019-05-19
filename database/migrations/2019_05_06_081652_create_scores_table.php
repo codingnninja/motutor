@@ -18,11 +18,14 @@ class CreateScoresTable extends Migration
             $table->string('subject_id');
             $table->string('student_id');
             $table->string('term');
-            $table->string('homework')->nullable();
-            $table->string('classwork')->nullable();
-            $table->string('welcome_test')->nullable();
-            $table->string('continues_assessement_test');
+            $table->string('homework_score')->nullable();
+            $table->string('classwork_score')->nullable();
+            $table->string('welcome_test_score')->nullable();
+            $table->string('note_score')->nullable();
+            $table->string('test_score');
             $table->string('exam');
+            //Todo: This(topics) should be removed in the future into a separate table
+            $table->string('topics');
             $table->timestamps();
         });
     }

@@ -40,13 +40,13 @@
                {{-- <td>{{ $student->status }}</td> --}} 
                 <td>
                     <a title="view this" class="btn btn-default btn-sm " href="{{url('profile/'.$student->id) }}"> 
-                      <i class="fa fa-eye text-primary"></i> 
+                      <i class="fa fa-eye text-primary"></i> Add profile
                     </a>
                     <a title="edit this" class="btn btn-default btn-sm" href="{{url('profile/edit/'.$student->id) }}"> 
-                      <i class="fa fa-edit"></i> 
+                      <i class="fa fa-edit"></i> Edit profile
                     </a>
                     <a title="delete this" class="btn btn-default btn-sm " href="{{url('admin/delete/student/'.$student->id) }}"> 
-                      <i class="fa fa-trash text-danger"></i> 
+                      <i class="fa fa-trash text-danger"></i> Delete profile
                     </a>
                     <span class="menu-item-has-children dropdown btn btn-default btn-sm">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop text-success"></i></a>
@@ -57,6 +57,11 @@
                           <li class="mb-3 pl-1"><i class="fa fa-bars"></i><a href="{{route('get.parents')}}"> Check Attendance</a></li>
                       </ul>
                     </span>
+                    @if(auth()->user()->type === 'admin')
+                        <a title="Comments about the students in your class" class="btn btn-default btn-sm " href="{{route('comment', $student->id)}}"> 
+                          <i class="fa fa-comment text-success"></i> comment 
+                        </a>
+                    @endif
                 </td>
               </tr>
             @endforeach

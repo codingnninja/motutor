@@ -24,8 +24,8 @@ class CreateProfilesTable extends Migration
             $table->string('parents_guidians_phone')->nullable();
             $table->string('address');
             $table->string('state');
-            $table->string('doctor_phone');
-            $table->string('blood_group');
+            $table->string('doctor_phone')->nullable();
+            $table->string('blood_group')->nullable();
             $table->string('city');
             $table->string('country');
             $table->string('avatar')->nullable();

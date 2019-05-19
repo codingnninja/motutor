@@ -7,18 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use App\Models\User;
 use App\Models\SchoolClass;
+use App\Models\Topic;
 
 class SubjectController extends Controller
 {
     protected $subject,
               $request,
+              $topic,
+              $class,
               $user;
 
-    public function __construct(Subject $subject, Request $request, User $user, SchoolClass $class)
+    public function __construct(Subject $subject, Request $request, User $user, SchoolClass $class, Topic $topic)
     {
         $this->subject = $subject;
         $this->class = $class;
         $this->user = $user;
+        $this->topic = $topic;
         $this->request = $request->all();
     }
 
@@ -50,6 +54,14 @@ class SubjectController extends Controller
     public function topics($subject_id)
     {
         $subjects = $this->subject->where('subject_id', $subject_id)->get();
+        $classes = $this->class->all();
+        return view('pages.core.subject.add_topic', ['subjects' => $subjects, 'classes' => $classes]);
+    }
+
+    public function add()
+    {
+        $this->topic->create($this->request);
+        $subjects = $this->topic->all();
         $classes = $this->class->all();
         return view('pages.core.subject.add_topic', ['subjects' => $subjects, 'classes' => $classes]);
     }

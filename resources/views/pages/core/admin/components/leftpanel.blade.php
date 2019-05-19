@@ -31,10 +31,10 @@
     <li class="menu-item-has-children dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Website</a>
         <ul class="sub-menu children dropdown-menu">
-            <li><i class="fa fa-puzzle-piece"></i><a href="{{route('get.students')}}">Home</a></li>
-            <li><i class="fa fa-bars"></i><a href="{{route('get.students')}}">Gallary</a></li>
-            <li><i class="fa fa-id-badge"></i><a href="{{route('get.students')}}">About Us</a></li>
-            <li><i class="fa fa-bars"></i><a href="{{route('get.subscriptions')}}">Contact Us</a></li> 
+            <li><i class="fa fa-puzzle-piece"></i><a href="{{route('website.index', 'home')}}">Home</a></li>
+            <li><i class="fa fa-bars"></i><a href="{{route('website.index', 'gallery')}}">Gallary</a></li>
+            <li><i class="fa fa-id-badge"></i><a href="{{route('website.index', 'about')}}">About Us</a></li>
+            <li><i class="fa fa-bars"></i><a href="{{route('website.index', 'contact')}}">Contact Us</a></li> 
         </ul>
     </li>
     <li class="">

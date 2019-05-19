@@ -107,13 +107,19 @@ class UserController extends Controller
      */
     public function store()
     {
-        $subjects_ids = $this->request['subjects'];
-        unset($this->request['subjects']);
+        if(count($this->request['subjects']) > 0 )
+        {
+            $subjects_ids = $this->request['subjects'];
+            unset($this->request['subjects']);
+        }
         
         if($this->profileForm->save($this->request))
         {
             // Assign set user to subject
-            $this->user->findOrfail($this->request['user_id'])->subjects()->sync($subjects_ids);  
+            if(isset($subjects_ids))
+            {
+                $this->user->findOrfail($this->request['user_id'])->subjects()->sync($subjects_ids);
+            } 
             return redirect("profile/{$this->request['user_id']}")->with('success','You have created this profile successfully');
         }
         return redirect('/');
@@ -131,10 +137,13 @@ class UserController extends Controller
         if($this->profileForm->update($this->request))
         {
             // Assign set tags to school
-            $this->user->findOrfail($this->request['user_id'])
-                       ->subjects()
-                       ->sync($subjects_ids);
-            return redirect("profile/{$this->request['user_id']}")->with('success','You have updated this profile successfully');
+            if(isset($subjects_ids))
+            {
+                $this->user->findOrfail($this->request['user_id'])
+                        ->subjects()
+                        ->sync($subjects_ids);
+                return redirect("profile/{$this->request['user_id']}")->with('success','You have updated this profile successfully');
+            }
         }
     }
     

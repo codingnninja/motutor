@@ -33,7 +33,7 @@ class Profile extends Model
      */
     public function author()
     {
-        return $this->hasOne('App\Models\User', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
 }

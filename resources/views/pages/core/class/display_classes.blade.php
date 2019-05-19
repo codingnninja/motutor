@@ -38,11 +38,11 @@
                 <td>
                     @if($class->teacher_id == auth()->user()->id)
                         <a title="Comments about the students in your class" class="btn btn-default btn-sm " href="{{url('teacher/classes/'.$class->class_id) }}"> 
-                          <i class="fa fa-comment text-success"></i> 
+                          <i class="fa fa-comment text-success"></i> comment 
                         </a>
                     @endif
                     <a title="view this" class="btn btn-default btn-sm " href="{{url('teacher/classes/'.$class->class_id) }}"> 
-                      <i class="fa fa-eye text-primary"></i>
+                      <i class="fa fa-eye text-primary"></i> view class
                     </a>
                   </td>
               </tr>
